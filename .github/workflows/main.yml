@@ -35,7 +35,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/pimebank-com-bd/maniktest:latest
-            ghcr.io/pimebank-com-bd/aniktest{github.run_number}}
+            ghcr.io/pimebank-com-bd/maniktest{github.run_number}}
     
            
         
