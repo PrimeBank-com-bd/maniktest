@@ -9,33 +9,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2 
       
-      - name: Build Project
-        run: mvn clean package 
-      
+      - name: Build project
+        run: mvn -B package --file pom.xml -DskipTests
+        
+      - name: verify
+        run: ls
+        working-directory: ./target
+          
       - name: Docker Setup QEMU
         uses: docker/setup-qemu-action@v1.0.1
         
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v1.0.3
-  
+
       - name: Docker Login
         uses: docker/login-action@v1.6.0
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.CAT_PA }}
-          #Build and push Docker images | Build Docker images
+          registry: ghcr.io 
+          username: ${{ github.repository_owner }} 
+          password:  ${{ secrets.CAT_PA }}  
+     
       - name: Build and push Docker images
-        uses: docker/build-push-action@v2.2.1
+        uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/pimebank-com-bd/maniktest:latest
-            ghcr.io/pimebank-com-bd/maniktest${{github.run_number}}
-    
-           
-        
+            ghcr.io/primebank-com-bd/maniktest:latest
+            ghcr.io/primebank-com-bd/maniktest:${{github.run_number}}
