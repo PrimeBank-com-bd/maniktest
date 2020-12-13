@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-#       - name: Build Project
-#         run: mvn clean package 
+      - name: Build Project
+        run: mvn clean package 
       
       - name: Docker Setup QEMU
         uses: docker/setup-qemu-action@v1.0.1
